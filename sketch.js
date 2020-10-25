@@ -1,63 +1,50 @@
-// CLASSES AND OBJECTS
-// PROJECT NAME : SUPPLY MISSION -2
-// AIM:  drop supplies and medical kits inside a designated red drop zone in the middle of a zombie apocalypse.
-// USING: CLASSES AND OBJECT
+//PROJECT 24 - CRUMPLED BALLS - 1
+//Desigining the element of a simple game of THROWING PAPER BALL IN A DUSTBIN
+//Ground.js - represents static ground class
+//Paper.js - represents the paper class 
+//Dustbin.js - represents the distbin class which has 3 rectangular bodies
+//when up arrow is pressed, force is applied on ball so it will move inside dustbin
 
-/*
-BOX CLASS is created to create insice which the package is dropped. 
-box has 3 sixed left,right and bottom and all are static 
-Package initially created is static, when down arrow is pressed the package is made free falling body.
-The helicoptor can be controlled with left and right arrow to move it.
-*/
 
-//name space
+//namespace
 const Engine = Matter.Engine;
-const World = Matter.World;
+const World= Matter.World;
 const Bodies = Matter.Bodies;
 
-//global variables
+//variables
 var engine, world;
-var ground
-var paper
+var ground; 
+var paper,dustbin;
 
 function setup(){
+    createCanvas(1500,700);
+    engine = Engine.create();
+    world = engine.world;
 
-        createCanvas(1500,800);
-        
-        //engine and world creation 
-        engine = Engine.create();
-        world =engine.world;
-
-        paper = new Paper(100,400,40)
-        //ground BODIES OBJECT - static physic object
-        ground = new Ground(width/2, height-40, width, 20)
-        dustbin = new Dustbin (width-300, height -40)
-     
-        console.log(paper)
-
-    }
-
-function draw(){
-        background(0);
-
-        //update the engine as x and y axis keep changing
-        Engine . update (engine);
-        paper.display()
-   
-        ground.display()
-        dustbin.display()
-        
-        console.log(paper.force.x)
-    
-       
+    ground  = new Ground(width/2, height-30, width, 20)
+    paper = new Paper(100,200,50)
+    dustbin = new Dustbin(width-400, height - 45)
 }
 
+function draw(){
+    rectMode(CENTER)
+    background(0);
+    Engine.update(engine);
+   
+    ground.display()    
+    paper.display ()
+    dustbin.display()
 
+    fill("yellow")
+    textSize(30)
+    text("CRUMPLED BALLS - 1",80,80)
+    text("Press UP_ARROW to apply force on the paper",80,130)
+    
+}
 
-function keyPressed() {
-    if (keyCode === UP_ARROW) {
-
-       Matter.Body.applyForce(paper.body,paper.body.position, {x:105,y:-85});
-          
-   }
+function keyPressed(){
+    if (keyCode == UP_ARROW) {
+//to make paper jump when you apply force on to object(when up arroe is pressed)
+        Matter.Body.applyForce(paper.body, paper.body.position, {x:85,y:-285});
+	}
 }
